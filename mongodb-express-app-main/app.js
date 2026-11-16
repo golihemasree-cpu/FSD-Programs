@@ -2,10 +2,15 @@ import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 
 const app = express();
-const port = 7000;
+const port = process.env.PORT || 7000;
 
 // MongoDB connection
-const mongoUrl = "mongodb://admin:admin123@localhost:27017";
+const mongoUrl = process.env.MONGO_URI;
+
+if (!mongoUrl) {
+    console.error("MONGO_URI is missing");
+    process.exit(1);
+}
 const databaseName = "library_db";
 
 const client = new MongoClient(mongoUrl);
