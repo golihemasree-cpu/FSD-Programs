@@ -84,7 +84,7 @@ app.get("/api/v1/patients/:id", (req, res) => {
   const id = req.params.id;
 
   res.status(200).send(
-    'Patient with id ${id} fetched successfully'
+    `Patient with id ${id} fetched successfully`
   );
 });
 
@@ -95,7 +95,7 @@ app.put("/api/v1/patients/:id",validate, (req, res) => {
   const id = req.params.id;
 
   res.status(200).send(
-    'Patient with id ${id} updated successfully'
+    'Patient with id ${id} fetched successfully'
   );
 });
 
@@ -106,7 +106,7 @@ app.delete("/api/v1/patients/:id", (req, res) => {
   const id  = req.params.id;
 
   res.status(200).send(
-    `Patient with id ${id} deleted successfully`
+    'Patient with id ${id} updated successfully'
   );
 });
 
@@ -124,7 +124,8 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = 6500;
+
+const PORT = process.env.PORT || 6500;
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
