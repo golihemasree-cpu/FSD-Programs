@@ -11,8 +11,8 @@ function Home() {
     async function fetchPosts() {
       try {
         const response = await fetch(
-          "https://fsd-backend-qjoc.onrender.com/api/v1/posts"
-        );
+  "https://mern-crud-backend-sw8w.onrender.com/api/v1/posts"
+);
 
         if (!response.ok) {
           throw new Error("Unable to load posts. Please try again.");
