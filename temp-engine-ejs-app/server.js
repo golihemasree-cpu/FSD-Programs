@@ -8,38 +8,50 @@ import {
   deleteProduct,
   createProductForm,
 } from "./controllers/productController.js";
+
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 
 dotenv.config();
-await connectDB(process.env.MONGO_URI, process.env.DB_NAME);
+
 const app = express();
+
+// Middleware
 app.use(express.json());
-
-const PORT = process.env.PORT || 9500;
-
-app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
-//CRUD operations for products
-// Route to render the product form for adding a new product
+// EJS View Engine
+app.set("view engine", "ejs");
+
+// Connect to MongoDB
+await connectDB(process.env.MONGO_URI, process.env.DB_NAME);
+
+// CRUD Operations for Products
+
+// Display all products
+app.get("/", readProducts);
+
+// Display product form
 app.get("/product-form", createProductForm);
-// Route to handle adding a new product
+
+// Add new product
 app.post("/add-product", createProduct);
 
-// Route to display all products
-app.get("/", readProducts);
-// Route to display a single product
+// Display single product
 app.get("/product/:id", readProductById);
 
-// Route to render the product form for editing an existing product
+// Display update product form
 app.get("/product-form/:id", updateProductForm);
-// Route to handle updating an existing product
+
+// Update product
 app.post("/add-product/:id", updateProduct);
 
-// Route to handle deleting a product
+// Delete product
 app.get("/delete-product/:id", deleteProduct);
 
+// Server Configuration
+const PORT = process.env.PORT || 9500;
+
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
